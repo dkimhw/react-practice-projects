@@ -1,0 +1,11 @@
+
+
+.btn {
+  border-radius: 10rem;
+  background-color: #76c7ad;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border: none;
+  padding: 1rem 2rem;
+  font-family: inherit;
+}

@@ -1,0 +1,13 @@
+
+
+.dropdown {
+  border: none;
+  padding: .75rem 1rem;
+  background-color: #ffebb3;
+  border-radius: 10rem;
+  padding: 1rem 2.5rem;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

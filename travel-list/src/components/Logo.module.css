@@ -1,0 +1,9 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Monoton:wght@500;700&display=swap");
+
+.logo {
+  text-align: center;
+  background-color: #f4a226;
+  font-family: "Monoton";
+  font-size: 4rem;
+}

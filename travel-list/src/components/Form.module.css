@@ -1,0 +1,14 @@
+
+
+.trip-form {
+  background-color: #e5771f;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+.form-text {
+  font-size: 1.5rem;
+}
