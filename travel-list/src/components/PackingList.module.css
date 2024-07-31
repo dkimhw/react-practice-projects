@@ -2,6 +2,9 @@
 
 .packing-container {
   background-color: #5a3e2b;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .items-container {
@@ -15,7 +18,7 @@
   justify-items: center;
 }
 
-.btn-container {
+.user-input-container {
   display: flex;
   margin: 1rem 0;
   justify-content: center;

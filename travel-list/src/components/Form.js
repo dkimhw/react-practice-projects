@@ -7,6 +7,8 @@ import { useState } from 'react';
 export const Form = (props) => {
   const [quantity, setQuantity] = useState(1);
   const [itemText, setItemText] = useState("");
+  const vals = [...Array(20).keys()];
+  const options = vals.map((val, idx) => <option value={val + 1} key={idx}>{val + 1}</option>);
 
   const handleSubmitForm = (evt) => {
     evt.preventDefault();
@@ -23,7 +25,7 @@ export const Form = (props) => {
   return (
     <form className={classes["trip-form"]} onSubmit={handleSubmitForm}>
       <p className={classes["form-text"]}>What do you need for your trip?</p>
-      <DropdownInput name="quantity" numOfOptions={20} onChange={(e) => setQuantity(e.target.value)}/>
+      <DropdownInput name="quantity" options={options} onChange={(e) => setQuantity(e.target.value)}/>
       <TextInput name="itemText" placeholder="Item..." onChange={(e) => setItemText(e.target.value)}/>
       <FormButton text="Add" />
     </form>

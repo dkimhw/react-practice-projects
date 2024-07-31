@@ -39,10 +39,15 @@ function App() {
   }
 
   const handleClearAllItems = () => {
-    console.log('blah')
     setItems([])
   }
 
+
+
+  // clicked on clear all items:
+  // 1. open modal
+  // 2. show options: "yes", "no"
+  // 3. based on answer, clear items / don't clear items
   return (
     <div className="app">
       <Logo text="Far Away" />
@@ -51,7 +56,7 @@ function App() {
         items={items}
         handleCheckboxOnChange={handleCheckboxOnChange}
         handleDeleteItem={handleDeleteItem}
-        onClickClearList={handleClearAllItems}
+        handleClearAllItems={handleClearAllItems}
       />
       <Footer items={items}/>
     </div>

@@ -7,7 +7,7 @@ export const Footer = (props) => {
 
   return (
     <div className={classes['footer']}>
-      {`You have ${numOfItems} on your list and you already packed ${packedItems} (${percPacked}%)`}
+      {`You have ${numOfItems} on your list and you already packed ${packedItems} (${percPacked ? percPacked : 0}%)`}
     </div>
   )
 }
