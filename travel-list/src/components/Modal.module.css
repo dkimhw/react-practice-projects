@@ -1,5 +1,8 @@
 .modal {
   position: fixed; /* Stay in place */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1; /* Sit on top */
   left: 0;
   top: 0;
@@ -8,4 +11,17 @@
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: 1px solid #000;
+  background-color: #36454F;
+  margin: 1.5rem;
+  font-size: 1.5rem;
 }

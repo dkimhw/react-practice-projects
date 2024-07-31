@@ -2,10 +2,10 @@ import classes from './PackingList.module.css';
 import { Item } from './Item';
 import { Button } from './Button';
 import { DropdownInput } from './DropdownInput';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Modal } from './Modal';
 
-const sortOptions = ['By Order of Entry', 'By Packed', 'By Item Name']
+const sortOptions = ['By Order of Entry', 'By Packed', 'By Item Name'];
 const options = sortOptions.map((val, idx) => <option value={val} key={idx}>{val}</option>);
 
 export const PackingList = ({
@@ -14,45 +14,67 @@ export const PackingList = ({
   handleDeleteItem,
   handleClearAllItems,
 }) => {
-  const [sortType, setSortType] = useState(sortOptions[0]);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  let sortedItems = items;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sortedItems, setSortedItems] = useState(items);
 
-  useEffect(() => {
-    if (sortType === 'By Order of Entry') {
-      sortedItems.sort((a, b) => {
+  let mappedSortedItems = sortedItems ? sortedItems.map((item, idx) =>
+    <Item
+      item={item}
+      key={idx}
+      handleCheckboxOnChange={handleCheckboxOnChange}
+      handleDeleteItem={handleDeleteItem}
+    />)
+  : "";
+
+  const handlSortTypeChange = async (e) => {
+    let evtVal = e.target.value;
+
+    let newArr = [...items];
+
+    if (evtVal === 'By Order of Entry') {
+      newArr.sort((a, b) => {
         return a.id - b.id;
       });
-    } else if (sortType === 'By Packed') {
-      sortedItems.sort((a, b) => {
+    } else if (evtVal === 'By Packed') {
+      console.log("hello")
+      newArr.sort((a, b) => {
         return a.isChecked - b.isChecked;
       });
-    } else if (sortType === 'By Item Name') {
-      sortedItems.sort((a, b) => {
+    } else if (evtVal === 'By Item Name') {
+      newArr.sort((a, b) => {
         if (a.itemText < b.itemText) return -1;
         if (a.itemText > b.itemText) return 1;
         return 0;
       });
     }
+    setSortedItems(newArr)
+  }
 
-  }, [sortType, sortedItems]);
+  const handleClearListClick = () => {
+    setIsModalOpen(!isModalOpen);
+  }
+
+  const handlClearTravelList = () => {
+    setIsModalOpen(!isModalOpen);
+    handleClearAllItems();
+  }
 
   return (
     <div className={classes['packing-container']}>
+      { isModalOpen ?
+        <Modal>
+          <p>Do you really want to clear all of items in the travel list?</p>
+          <div className={classes['user-input-container']}>
+            <Button buttonText={"Continue to Remove All Items"} onClick={handlClearTravelList}/>
+          </div>
+        </Modal> : ""
+      }
       <div className={classes['items-container']}>
-        { items ? items.map((item, idx) =>
-            <Item
-              item={item}
-              key={idx}
-              handleCheckboxOnChange={handleCheckboxOnChange}
-              handleDeleteItem={handleDeleteItem}
-            />)
-          : ""
-        }
+        {mappedSortedItems}
       </div>
       <div className={classes['user-input-container']}>
-        <DropdownInput name="quantity" options={options} onChange={(e) => setSortType(e.target.value)}/>
-        <Button buttonText={"Clear List"} onClick={handleClearAllItems}/>
+        <DropdownInput name="quantity" options={options} onChange={handlSortTypeChange}/>
+        <Button buttonText={"Clear List"} onClick={handleClearListClick}/>
       </div>
     </div>
   )
