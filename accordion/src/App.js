@@ -1,5 +1,5 @@
 import './App.css';
-import { AccordionList } from '../components/AccordionList';
+import { AccordionList } from './components/AccordionList';
 
 const faqs = [
   {
