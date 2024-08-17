@@ -3,15 +3,14 @@ import classes from './Accordion.module.css';
 
 export const Accordion = ({ dataItem, itemNum }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div className={classes['item']}>
+    <div className={`${classes['item']} ${isOpen ? classes['open'] : ''}`}>
       <h3 className={classes['number']}>{itemNum}</h3>
-      <div className={classes['content-box']}>
+      <div>
         <h3 className={classes['title']}>{dataItem.title}</h3>
-        <p>{dataItem.text}</p>
+        { isOpen ? <p className={classes['content-box']}>{dataItem.text}</p> : ''}
       </div>
-      <div>Close</div>
+      <button onClick={() => setIsOpen(!isOpen)}>X</button>
     </div>
   )
 }

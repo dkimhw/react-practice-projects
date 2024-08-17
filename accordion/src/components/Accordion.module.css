@@ -20,8 +20,12 @@
   color: #ced4da;
 }
 
-.title,
 .icon {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.title {
   font-size: 24px;
   font-weight: 500;
 }
@@ -35,6 +39,11 @@
 /* OPEN STATE */
 .open {
   border-top: 4px solid #087f5b;
+  align-items: flex-start;
+}
+
+.open .title {
+  margin-bottom: 1rem;
 }
 
 .open .number,
