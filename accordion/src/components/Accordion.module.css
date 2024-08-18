@@ -36,6 +36,16 @@
   line-height: 1.6;
 }
 
+.btn {
+  border: none;
+  background-color:transparent;
+  outline:none;
+  padding: .25rem;
+  width: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 /* OPEN STATE */
 .open {
   border-top: 4px solid #087f5b;

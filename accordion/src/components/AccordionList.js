@@ -5,7 +5,7 @@ export const AccordionList = ({ data }) => {
   return (
     <div className={classes['accordion-list']}>
       { data ? data.map((item, idx) => {
-        return <Accordion dataItem={item} itemNum={idx} />
+        return <Accordion dataItem={item} itemNum={idx} key={idx} />
       }) : ""}
     </div>
   )

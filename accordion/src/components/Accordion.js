@@ -10,7 +10,7 @@ export const Accordion = ({ dataItem, itemNum }) => {
         <h3 className={classes['title']}>{dataItem.title}</h3>
         { isOpen ? <p className={classes['content-box']}>{dataItem.text}</p> : ''}
       </div>
-      <button onClick={() => setIsOpen(!isOpen)}>X</button>
+      <button className={classes['btn']} onClick={() => setIsOpen(!isOpen)}>{!isOpen ? '+' : '-'}</button>
     </div>
   )
 }
