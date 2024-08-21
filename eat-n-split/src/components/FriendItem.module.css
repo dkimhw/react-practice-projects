@@ -1,0 +1,25 @@
+
+
+.friend-item {
+  display: grid;
+  grid-template-columns: 4.8rem 1fr auto;
+  align-items: center;
+  column-gap: 1.5rem;
+  border-radius: 7px;
+  transition: 0.5s;
+}
+
+.friend-item-img {
+  max-width: 40px;
+  border-radius: 50%;
+}
+
+.friend-item-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+
+/* .friend-item-balance {
+
+} */
