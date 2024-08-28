@@ -6,15 +6,17 @@ export const FriendList = ({ friends, handleSelect, selectedFriend, isAddFriendF
   return (
     <div className={classes['friend-list']}>
       { friends ? friends.map((friend, idx) => {
-        return <FriendItem
-                  key={friend.id}
-                  id={friend.id}
-                  imageURL={friend.image}
-                  name={friend.name}
-                  balance={friend.balance}
-                  selectedFriend={selectedFriend}
-                  handleSelect={handleSelect}
-                />
+        return (
+          <FriendItem
+            key={friend.id}
+            id={friend.id}
+            imageURL={friend.image}
+            name={friend.name}
+            balance={friend.balance}
+            selectedFriend={selectedFriend}
+            handleSelect={handleSelect}
+          />
+        )
       }) : ""}
       { !isAddFriendFormOpen ? <Button handleClick={handleAddFriendFormClick}>Add friend</Button> : "" }
     </div>

@@ -1,8 +1,10 @@
 import './App.css';
-// import { FriendList } from './components/FriendList';
 import { Friend } from './components/Friend';
 import { useState } from 'react';
+import { BillForm } from './components/BillForm';
+import { Fragment } from 'react';
 
+// https://i.pravatar.cc/48?u=1189
 const initialFriends = [
   {
     id: 118836,
@@ -24,7 +26,7 @@ const initialFriends = [
   },
 ];
 
-// ToDO
+// ToDo
 // 1. Add "Select" on click event that you can pass to Button component
 // 2. Add "Add friend" on click event that you can pass to FriendList component
 
@@ -45,18 +47,25 @@ function App() {
     setSelectedFriend(Number(id));
   };
 
-  // const handleClick = () => {
-  //   const newArray = [...friends]
-  //   setFriends(newArray);
-  // }
+  const handleAddFriends = (friend) => {
+    const newFriends = [...friends, friend]
+    setFriends(newFriends)
+  }
+
+  const updateBalance = (friendId) => {
+    return
+  }
 
   return (
-    <Friend
-      friends={friends}
-      handleSelect={handleSelect}
-      selectedFriend={selectedFriend}
-    />
-    // <BillForm /> - this will need the friend name & understand which friend balance to update
+    <Fragment>
+      <Friend
+        friends={friends}
+        handleSelect={handleSelect}
+        selectedFriend={selectedFriend}
+        handleAddFriends={handleAddFriends}
+      />
+      <BillForm updateBalance={updateBalance} friend={friends[selectedFriend]} />
+    </Fragment>
   );
 }
 

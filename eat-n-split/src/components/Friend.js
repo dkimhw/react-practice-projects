@@ -4,14 +4,13 @@ import { FormContainer } from './FormContainer'
 import { FriendList } from "./FriendList";
 import { useState } from "react";
 
-export const Friend = ({ friends, handleSelect, selectedFriend }) => {
+export const Friend = ({ friends, handleSelect, selectedFriend, handleAddFriends }) => {
   const [isAddFriendFormOpen, setIsAddFriendFormOpen] = useState(false);
 
   const handleAddFriendFormClick = () => {
     setIsAddFriendFormOpen(!isAddFriendFormOpen);
   }
 
-  console.log(isAddFriendFormOpen);
   return (
     <>
       <FriendList
@@ -23,7 +22,7 @@ export const Friend = ({ friends, handleSelect, selectedFriend }) => {
       />
       { isAddFriendFormOpen ?
         <FormContainer>
-          <AddFriendForm />
+          <AddFriendForm handleFormSubmission={handleAddFriends}/>
         </FormContainer> : ""
       }
     </>
