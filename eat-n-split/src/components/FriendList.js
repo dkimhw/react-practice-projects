@@ -5,7 +5,7 @@ import classes from './FriendList.module.css'
 export const FriendList = ({ friends, handleSelect, selectedFriend, isAddFriendFormOpen, handleAddFriendFormClick }) => {
   return (
     <div className={classes['friend-list']}>
-      { friends ? friends.map((friend, idx) => {
+      { friends ? friends.map((friend) => {
         return (
           <FriendItem
             key={friend.id}
@@ -18,7 +18,7 @@ export const FriendList = ({ friends, handleSelect, selectedFriend, isAddFriendF
           />
         )
       }) : ""}
-      { !isAddFriendFormOpen ? <Button handleClick={handleAddFriendFormClick}>Add friend</Button> : "" }
+      { !isAddFriendFormOpen ? <div className={classes['btn-container']}><Button handleClick={handleAddFriendFormClick}>Add friend</Button></div> : "" }
     </div>
   )
 }

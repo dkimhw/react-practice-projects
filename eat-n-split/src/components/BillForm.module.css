@@ -8,3 +8,7 @@
   cursor: pointer;
   transition: 0.3s;
 }
+
+.bill-form-title {
+  margin-bottom: 1rem;
+}

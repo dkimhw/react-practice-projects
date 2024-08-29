@@ -1,15 +1,20 @@
 import { TextInput } from "./TextInput";
 import classes from './AddFriendForm.module.css'
 import { useState } from 'react'
+import { FormContainer } from "./FormContainer";
 
-export const AddFriendForm = ({ handleFormSubmission }) => {
+export const AddFriendForm = ({ handleFormSubmission, handleAddFriendFormClick }) => {
   const [name, setName] = useState("");
   const [imgURL, setImgURL] = useState("");
 
   const extractFriendId = (url) => {
     const re = /\?u=(\d+)/;
-    const id = Number(url.match(re)[1]);
-    return id;
+    try {
+      const id = Number(url.match(re)[1]);
+      return id;
+    } catch (e) {
+      return 1;
+    }
   }
 
   const nameChangeHandler = (evt) => {
@@ -33,10 +38,15 @@ export const AddFriendForm = ({ handleFormSubmission }) => {
   }
 
   return (
-    <form method="post" onSubmit={handleSubmit} className={classes['add-friend-form']}>
-      <TextInput name="name" value={name} labelText={"Friend Name"} handleInputChange={nameChangeHandler} />
-      <TextInput name="url" value={imgURL} labelText={"Image URL"} handleInputChange={imgURLHandler} />
-      <button className={classes['btn']}>Add friend</button>
-    </form>
+    <FormContainer>
+      <form method="post" onSubmit={handleSubmit} className={classes['add-friend-form']}>
+        <TextInput name="name" value={name} labelText={"Friend Name"} handleInputChange={nameChangeHandler} />
+        <TextInput name="url" value={imgURL} labelText={"Image URL"} handleInputChange={imgURLHandler} />
+        <div className={classes['btn-container']}>
+          <button className={classes['btn']}>Add friend</button>
+          <button className={`${classes['btn']} ${classes['close-btn']}`} onClick={handleAddFriendFormClick}>Close</button>
+        </div>
+      </form>
+    </FormContainer>
   )
 }

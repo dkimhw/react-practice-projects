@@ -1,7 +1,7 @@
 
 .add-friend-form {
   width: 90%;
-  margin: 1.5rem auto 0 auto;
+  margin: 1rem auto;
 }
 
 .btn {
@@ -13,4 +13,15 @@
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  gap: .75rem;
+}
+
+.close-btn {
+  background-color: #E52B50;
 }

@@ -1,9 +1,9 @@
-import classes from './AddFriendForm.module.css'
+import classes from './FormContainer.module.css'
 
 export const FormContainer = ({ children }) => {
 
   return (
-    <div className={classes['form']} >
+    <div className={classes['form']}>
       { children }
     </div>
   )

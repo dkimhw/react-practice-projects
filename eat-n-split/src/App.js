@@ -1,7 +1,6 @@
 import './App.css';
 import { Friend } from './components/Friend';
 import { useState } from 'react';
-import { BillForm } from './components/BillForm';
 import { Fragment } from 'react';
 
 // https://i.pravatar.cc/48?u=1189
@@ -44,7 +43,12 @@ function App() {
   const [friends, setFriends] = useState(initialFriends);
 
   const handleSelect = (id) => {
-    setSelectedFriend(Number(id));
+    let selectedId = Number(id);
+    if (selectedId === selectedFriend) {
+      setSelectedFriend(null);
+    } else {
+      setSelectedFriend(selectedId);
+    }
   };
 
   const handleAddFriends = (friend) => {
@@ -56,6 +60,11 @@ function App() {
     return
   }
 
+  // Close add friend button
+  // Drop down for bill form
+  // Update balance logic
+  // What happens when you have a long list of friends
+  // CSS iterations
   return (
     <Fragment>
       <Friend
@@ -63,8 +72,8 @@ function App() {
         handleSelect={handleSelect}
         selectedFriend={selectedFriend}
         handleAddFriends={handleAddFriends}
+        updateBalance={updateBalance}
       />
-      <BillForm updateBalance={updateBalance} friend={friends[selectedFriend]} />
     </Fragment>
   );
 }
