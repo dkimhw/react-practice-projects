@@ -21,7 +21,7 @@ export const Friend = ({ friends, handleSelect, selectedFriend, handleAddFriends
 
   return (
     <div className={classes['friend']}>
-      <div>
+      <div className={classes['friend-list-container']}>
         <FriendList
           friends={friends}
           handleSelect={handleSelect}
@@ -35,7 +35,9 @@ export const Friend = ({ friends, handleSelect, selectedFriend, handleAddFriends
         }
       </div>
       { selectedFriend ?
-        <BillForm updateBalance={updateBalance} friend={selectedFriendData} /> : ""
+        <div className={classes['bill-container']}>
+          <BillForm updateBalance={updateBalance} friend={selectedFriendData} />
+        </div> : ""
       }
     </div>
   )

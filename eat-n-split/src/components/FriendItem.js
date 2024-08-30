@@ -18,7 +18,7 @@ export const FriendItem = ({ imageURL, id, name, balance, selectedFriend, handle
       <img src={imageURL} alt="user profile" className={classes['friend-item-img']}></img>
       <div>
         <h3 className={classes['friend-item-name']}>{name}</h3>
-        <p>{balanceMsg}</p>
+        <p className={classes['friend-item-msg']}>{balanceMsg}</p>
       </div>
       <Button value={id} handleClick={(evt) => {handleSelect(evt.target?.value)}}>Select</Button>
     </div>

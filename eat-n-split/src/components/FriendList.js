@@ -18,7 +18,10 @@ export const FriendList = ({ friends, handleSelect, selectedFriend, isAddFriendF
           />
         )
       }) : ""}
-      { !isAddFriendFormOpen ? <div className={classes['btn-container']}><Button handleClick={handleAddFriendFormClick}>Add friend</Button></div> : "" }
+      { !isAddFriendFormOpen ?
+          <div className={classes['btn-container']}>
+            <Button handleClick={handleAddFriendFormClick}>Add friend</Button>
+          </div> : "" }
     </div>
   )
 }

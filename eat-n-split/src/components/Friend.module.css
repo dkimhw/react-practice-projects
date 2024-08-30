@@ -1,7 +1,20 @@
 
 
 .friend {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr auto;
-  column-gap: 1.5rem;
+  column-gap: 1.5rem; */
+
+  display: flex;
+  transition: .3s;
+  row-gap: .75rem;
+}
+
+.bill-container {
+  display: flex;
+  align-items: center;
+}
+
+.friend-list-container {
+  margin-right: 1.5rem;
 }

@@ -60,11 +60,12 @@ function App() {
     return
   }
 
-  // Close add friend button
+  // Updating friend's balance in form
+
+
+  // CSS changes for add form (more consistent css)
   // Drop down for bill form
-  // Update balance logic
-  // What happens when you have a long list of friends
-  // CSS iterations
+  // Update balance logic after form submission
   return (
     <Fragment>
       <Friend

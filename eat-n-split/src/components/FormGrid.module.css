@@ -1,0 +1,7 @@
+
+.form-grid {
+  display: grid;
+  column-gap: .5rem;
+  row-gap: 1rem;
+  grid-template-columns: auto minmax(50px, 75px);
+}

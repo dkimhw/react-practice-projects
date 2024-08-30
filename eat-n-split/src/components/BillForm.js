@@ -1,40 +1,43 @@
 import { useState, useEffect } from 'react'
 import { FormContainer } from './FormContainer'
-import { TextInput } from './TextInput'
 import classes from './BillForm.module.css'
+import { FormGrid } from './FormGrid'
+import { InputLabel } from './InputLabel'
+import { TextInput2 } from './TextInput2'
 
 export const BillForm = ({ friend, updateBalance}) => {
-  const [bill, setBill] = useState(null);
-  const [expense, setExpense] = useState(null);
-  const [friendExpense, setFriendExpense] = useState(null);
-  console.log("friend", friend);
+  const [bill, setBill] = useState("");
+  const [expense, setExpense] = useState("");
+  const [friendExpense, setFriendExpense] = useState("");
 
   // change handler
   const billChangeHandler = (evt) => {
-    setBill(evt.target.vaule)
+    setBill(evt.target.value);
   }
 
   const expenseChangeHandler = (evt) => {
-    setExpense(evt.target.value)
+    setExpense(evt.target.value);
   }
 
   useEffect(() => {
     let remainingExpense = bill - expense;
-    console.log("bill", bill)
     setFriendExpense(remainingExpense)
   }, [bill, expense])
 
-
   // Add drop down input
   return (
-    <FormContainer>
+    <FormContainer style={{"padding": "2.5rem", "minWidth": "300px"}}>
       <h2 className={classes['bill-form-title']}>{`Split a bill with ${friend?.name}`}</h2>
       <form>
-        <TextInput name="bill" value={bill} labelText={"Bill value"} onChange={billChangeHandler} />
-        <TextInput name="expense" value={expense} labelText={"Your expense"} onChange={expenseChangeHandler} />
-        <TextInput name="friendExpense" value={friendExpense} labelText={`${friend?.name}'s expense`} isDisabled={true}/>
-
-        <button className={classes['btn']}>Split bill</button>
+        <FormGrid>
+          <InputLabel labelText={"Bill value"}/>
+          <TextInput2 name="bill" value={bill} handleInputChange={billChangeHandler} />
+          <InputLabel labelText={"Your expense"}/>
+          <TextInput2 name="expense" value={expense} handleInputChange={expenseChangeHandler} />
+          <InputLabel labelText={`${friend?.name}'s expense`}/>
+          <input value={friendExpense} disabled={true} readOnly />
+          <button className={classes['btn']}>Split bill</button>
+        </FormGrid>
       </form>
     </FormContainer>
   )

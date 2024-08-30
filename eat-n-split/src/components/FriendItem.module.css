@@ -7,7 +7,7 @@
   column-gap: 1.5rem;
   border-radius: 7px;
   transition: 0.5s;
-  padding: .75rem .5rem;
+  padding: 1rem .75rem;
 }
 
 .friend-item-img {
@@ -16,9 +16,13 @@
 }
 
 .friend-item-name {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: .5rem;
+}
+
+.friend-item-msg {
+  font-size: 1.15rem;
 }
 
 .friend-item-selected {

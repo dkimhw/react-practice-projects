@@ -1,9 +1,9 @@
 import classes from './FormContainer.module.css'
 
-export const FormContainer = ({ children }) => {
+export const FormContainer = ({ children, style }) => {
 
   return (
-    <div className={classes['form']}>
+    <div className={classes['form']} style={style}>
       { children }
     </div>
   )
