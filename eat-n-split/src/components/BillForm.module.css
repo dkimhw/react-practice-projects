@@ -9,6 +9,7 @@
   cursor: pointer;
   transition: 0.3s;
   grid-column-end: -1;
+  margin-top: .5rem;
 }
 
 .bill-form-title {

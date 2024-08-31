@@ -26,18 +26,9 @@ const initialFriends = [
 ];
 
 // ToDo
-// 1. Add "Select" on click event that you can pass to Button component
-// 2. Add "Add friend" on click event that you can pass to FriendList component
-
-/*
-
-When you "Select" you can split a bill with that friend - & pops open a form to share bill
-with then based on the inputs - it needs to update the data in `initialFriends`
-
-
-It's important to practice first then watch how the teacher did it
-*/
-
+// Update balance logic after form submission
+// CSS changes for friend list
+// CSS changes for add form (more consistent css)
 function App() {
   const [selectedFriend, setSelectedFriend] = useState(null); // saves the id
   const [friends, setFriends] = useState(initialFriends);
@@ -56,16 +47,25 @@ function App() {
     setFriends(newFriends)
   }
 
-  const updateBalance = (friendId) => {
-    return
+  const updateBalance = (friendId, amount, payer) => {
+    // you - if I paid - the friend owes me - so increase the balance
+    // friend - if friend paid - I owne the friend - so decrease the balance
+    const friend = friends.find(el => el?.id === friendId);
+    if (!friend) return "";
+
+    // update balance
+    let newBalance;
+    if (payer === 'you') {
+      newBalance = friend?.balance + amount;
+    } else if (payer === 'friend') {
+      newBalance = friend?.balance - amount;
+    }
+    friend.balance = newBalance;
+
+    let newArray = friends.filter(el => el?.id !== friendId);
+    setFriends([...newArray, friend]);
   }
 
-  // Updating friend's balance in form
-
-
-  // CSS changes for add form (more consistent css)
-  // Drop down for bill form
-  // Update balance logic after form submission
   return (
     <Fragment>
       <Friend

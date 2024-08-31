@@ -2,11 +2,12 @@
 .friend-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: .5rem;
 }
 
 .btn-container {
   display: flex;
   justify-content: flex-end;
   padding: .5rem;
+  margin-top: .5rem;
 }
