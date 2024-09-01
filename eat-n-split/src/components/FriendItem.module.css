@@ -25,6 +25,14 @@
   font-size: 1.15rem;
 }
 
+.friend-item-msg-positive {
+  color: #32de84
+}
+
+.friend-item-msg-negative {
+  color: #D2122E
+}
+
 .friend-item-selected {
   background-color: var(--color-light);
 }

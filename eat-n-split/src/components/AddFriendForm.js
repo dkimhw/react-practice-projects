@@ -38,7 +38,7 @@ export const AddFriendForm = ({ handleFormSubmission, handleAddFriendFormClick }
   }
 
   return (
-    <FormContainer>
+    <FormContainer style={{"marginTop": "1rem"}}>
       <form method="post" onSubmit={handleSubmit} className={classes['add-friend-form']}>
         <TextInput name="name" value={name} labelText={"Friend Name"} handleInputChange={nameChangeHandler} />
         <TextInput name="url" value={imgURL} labelText={"Image URL"} handleInputChange={imgURLHandler} />

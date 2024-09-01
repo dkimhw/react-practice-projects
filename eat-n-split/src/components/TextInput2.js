@@ -1,8 +1,8 @@
 
 // import classes from './TextInput.module.css'
 
-export const TextInput2 = ({ handleInputChange, isDisabled }) => {
+export const TextInput2 = ({ name, id, handleInputChange, isDisabled }) => {
   return (
-    <input type="text" onChange={handleInputChange} disabled={isDisabled}></input>
+    <input type="text" name={name} id={id} onChange={handleInputChange} disabled={isDisabled}></input>
   )
 }

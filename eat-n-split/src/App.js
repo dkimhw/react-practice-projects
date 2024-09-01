@@ -26,8 +26,6 @@ const initialFriends = [
 ];
 
 // ToDo
-// Update balance logic after form submission
-// CSS changes for friend list
 // CSS changes for add form (more consistent css)
 function App() {
   const [selectedFriend, setSelectedFriend] = useState(null); // saves the id
@@ -50,10 +48,10 @@ function App() {
   const updateBalance = (friendId, amount, payer) => {
     // you - if I paid - the friend owes me - so increase the balance
     // friend - if friend paid - I owne the friend - so decrease the balance
-    const friend = friends.find(el => el?.id === friendId);
+    const newArray = friends.slice();
+    const friend = newArray.find(el => el?.id === friendId);
     if (!friend) return "";
 
-    // update balance
     let newBalance;
     if (payer === 'you') {
       newBalance = friend?.balance + amount;
@@ -62,8 +60,7 @@ function App() {
     }
     friend.balance = newBalance;
 
-    let newArray = friends.filter(el => el?.id !== friendId);
-    setFriends([...newArray, friend]);
+    setFriends(newArray);
   }
 
   return (
