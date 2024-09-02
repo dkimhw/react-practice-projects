@@ -1,7 +1,8 @@
-import { TextInput } from "./TextInput";
 import classes from './AddFriendForm.module.css'
 import { useState } from 'react'
 import { FormContainer } from "./FormContainer";
+import { TextInput } from "./TextInput";
+import { InputLabel } from "./InputLabel";
 
 export const AddFriendForm = ({ handleFormSubmission, handleAddFriendFormClick }) => {
   const [name, setName] = useState("");
@@ -39,12 +40,18 @@ export const AddFriendForm = ({ handleFormSubmission, handleAddFriendFormClick }
 
   return (
     <FormContainer style={{"marginTop": "1rem"}}>
-      <form method="post" onSubmit={handleSubmit} className={classes['add-friend-form']}>
-        <TextInput name="name" value={name} labelText={"Friend Name"} handleInputChange={nameChangeHandler} />
-        <TextInput name="url" value={imgURL} labelText={"Image URL"} handleInputChange={imgURLHandler} />
-        <div className={classes['btn-container']}>
-          <button className={classes['btn']}>Add friend</button>
-          <button className={`${classes['btn']} ${classes['close-btn']}`} onClick={handleAddFriendFormClick}>Close</button>
+      <form method="post" onSubmit={handleSubmit}>
+        <div className={classes['form-grid']}>
+          <InputLabel forText="name" labelText={"Friend name"} />
+          <TextInput id="name" value={name} handleInputChange={nameChangeHandler} />
+
+          <InputLabel forText="url" labelText={"Image URL"} />
+          <TextInput id="url" value={imgURL} handleInputChange={imgURLHandler} />
+
+          <div className={classes['btn-container']}>
+            <button className={classes['btn']}>Add friend</button>
+            <button className={`${classes['btn']} ${classes['close-btn']}`} onClick={handleAddFriendFormClick}>Close</button>
+          </div>
         </div>
       </form>
     </FormContainer>

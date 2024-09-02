@@ -3,7 +3,7 @@ import { FormContainer } from './FormContainer'
 import classes from './BillForm.module.css'
 import { FormGrid } from './FormGrid'
 import { InputLabel } from './InputLabel'
-import { TextInput2 } from './TextInput2'
+import { TextInput } from './TextInput'
 
 export const BillForm = ({ friend, updateBalance }) => {
   const [bill, setBill] = useState("");
@@ -57,10 +57,10 @@ export const BillForm = ({ friend, updateBalance }) => {
       <form method="post" onSubmit={handleSubmit}>
         <FormGrid>
           <InputLabel forText="bill" labelText={"Bill value"} />
-          <TextInput2 id="bill" value={bill} handleInputChange={billChangeHandler} />
+          <TextInput id="bill" value={bill} handleInputChange={billChangeHandler} />
 
           <InputLabel forText="expense" labelText={"Your expense"} />
-          <TextInput2 id="expense" value={expense} handleInputChange={expenseChangeHandler} />
+          <TextInput id="expense" value={expense} handleInputChange={expenseChangeHandler} />
 
           <InputLabel forText="friendExpense" labelText={`${friend?.name}'s expense`} />
           <input id="friendExpense" value={friendExpense} disabled={true} readOnly />
