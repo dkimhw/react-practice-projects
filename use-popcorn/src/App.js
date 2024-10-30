@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const tempMovieData = [
   {
@@ -50,8 +50,7 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const Search = () => {
-  const [query, setQuery] = useState("");
+const Search = ({ query, onChange }) => {
 
   return (
     <input
@@ -59,7 +58,7 @@ const Search = () => {
       type="text"
       placeholder="Search movies..."
       value={query}
-      onChange={(e) => setQuery(e.target.value)}
+      onChange={(e) => onChange(e.target.value)}
     />
   )
 }
@@ -81,9 +80,9 @@ const NumResults = ({ movies }) => {
   )
 }
 
-const Movie = ({ movie }) => {
+const Movie = ({ movie, onSelectMovie }) => {
   return (
-    <li key={movie.imdbID}>
+    <li key={movie.imdbID} onClick={() => {onSelectMovie(movie.imdbID)}}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
@@ -94,13 +93,12 @@ const Movie = ({ movie }) => {
       </div>
     </li>
   )
-
 }
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, handleSelectMovie }) => {
   return (
-    <ul className="list">
-      {movies?.map((movie) => <Movie movie={movie} key={movie.imdbID}/>)}
+    <ul className="list list-movies">
+      {movies?.map((movie) => <Movie movie={movie} key={movie.imdbID} onSelectMovie={handleSelectMovie}/>)}
     </ul>
   )
 }
@@ -197,23 +195,102 @@ const Main = ({ children }) => {
   );
 }
 
+const Loader = () => {
+  return <p className="loader">Loading...</p>;
+}
+
+const ErrorMessage = ({message}) => {
+  // return <p className="error">{message}</p>;
+  return (
+    <p className="error">🛑 {message ? message.message : 'Something went wrong.'}</p>
+  )
+}
+
+const MovieDetails = ({ selectedId, onCloseMovie }) => {
+  return (
+    <div className="details">
+      <button className="btn-back" onClick={onCloseMovie}>
+        &larr;
+      </button>
+      {selectedId}
+    </div>
+  )
+}
+
 export default function App() {
+  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [error, setError] = useState("");
+
+  function handleSelectMovie(id) {
+    if (id === selectedId) {
+      setSelectedId(null);
+    } else {
+      setSelectedId(id);
+    }
+  }
+
+  function handleCloseMovie() {
+    setSelectedId(null);
+  }
+
+  useEffect(function() {
+    async function fetchMovies() {
+      try{
+        setError("");
+        setIsLoading(true);
+        const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${query}`)
+
+        if(!res.ok) throw new Error("Something went wrong with fetching movies");
+
+        const data = await res.json();
+
+        if (data.Response === 'False') {
+          throw new Error('Movies not found.')
+        }
+
+        setMovies(data.Search);
+      } catch(err) {
+        console.log(err);
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    if (query.length < 2) {
+      setMovies([]);
+      setError("");
+      return;
+    }
+
+    fetchMovies();
+  }, [query]);
 
   return (
     <>
       <NavBar>
-        <Search />
+        <Search onChange={setQuery} query={query} />
         <NumResults movies={movies} />
       </NavBar>
       <Main>
         <Box>
-          <MovieList movies={movies} />
+          { isLoading && !error && <Loader /> }
+          { !isLoading && !error && <MovieList movies={movies} handleSelectMovie={handleSelectMovie} /> }
+          { error && <ErrorMessage message={error}/> }
+
         </Box>
         <Box>
-          <WatchedSummary watched={watched} />
-          <WatchedMoviesList watched={watched} />
+          {
+            selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} /> :
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedMoviesList watched={watched} />
+            </>
+          }
         </Box>
       </Main>
     </>

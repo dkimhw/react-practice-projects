@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { TextExpander } from './components/TextExpander';
 
@@ -13,7 +12,6 @@ function App() {
       <TextExpander text={msg} defaultShow={false} />
       <TextExpander text={msg2} defaultShow={true} />
       <TextExpander text={msg3} charsShown={200} defaultShow={false} />
-
     </div>
   );
 }

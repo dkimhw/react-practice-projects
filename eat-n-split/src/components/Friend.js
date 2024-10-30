@@ -36,9 +36,10 @@ export const Friend = ({ friends, handleSelect, selectedFriend, handleAddFriends
       </div>
       { selectedFriend ?
         <div className={classes['bill-container']}>
-          <BillForm updateBalance={updateBalance} friend={selectedFriendData} />
+          <BillForm updateBalance={updateBalance} friend={selectedFriendData} key={selectedFriend} />
         </div> : ""
       }
+
     </div>
   )
 }

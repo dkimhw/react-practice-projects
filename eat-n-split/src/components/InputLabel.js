@@ -1,5 +1,5 @@
 
-import classes from './TextInput.module.css'
+import classes from './InputLabel.module.css'
 
 export const InputLabel = ({ forText, labelText }) => {
   return (

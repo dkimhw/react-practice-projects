@@ -25,7 +25,9 @@ export const FriendItem = ({ imageURL, id, name, balance, selectedFriend, handle
         <h3 className={classes['friend-item-name']}>{name}</h3>
         <p className={`${classes['friend-item-msg']} ${classes[balanceMsgCSS]}`}>{balanceMsg}</p>
       </div>
-      <Button value={id} handleClick={(evt) => {handleSelect(evt.target?.value)}}>Select</Button>
+      <Button value={id} handleClick={(evt) => {handleSelect(evt.target?.value)}}>
+        {selectedFriend === id ? "Close" : "Select"}
+      </Button>
     </div>
   )
 }
