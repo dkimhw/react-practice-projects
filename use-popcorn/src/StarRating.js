@@ -11,7 +11,7 @@ const starContainerStyle = {
   gap: "4px",
 }
 
-export default function StarRating({
+export function StarRating({
     maxRating = 5,
     color='#fcc419',
     size=48,
@@ -51,7 +51,7 @@ export default function StarRating({
         ))}
       </div>
       <p style={textStyle}>
-        { messages.length === maxRating ? messages[(hoverRating || rating) - 1] :
+        { messages?.length === maxRating ? messages[(hoverRating || rating) - 1] :
           hoverRating || rating || ""
         }
       </p>
