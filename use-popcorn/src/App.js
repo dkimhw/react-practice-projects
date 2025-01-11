@@ -228,6 +228,20 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
   }
 
   useEffect(function() {
+    function callback(e) {
+      if (e.code === "Escape") {
+        onCloseMovie();
+      }
+    }
+
+    document.addEventListener("keydown", callback);
+
+    return function() {
+      document.removeEventListener("keydown", callback);
+    }
+  }, [onCloseMovie])
+
+  useEffect(function() {
     async function getMovieDetails() {
       const res = await fetch (
         `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&i=${selectedId}`
