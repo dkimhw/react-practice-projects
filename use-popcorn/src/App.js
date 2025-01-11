@@ -107,8 +107,8 @@ export const Box = ({ children }) => {
 }
 
 const WatchedSummary = ({ watched }) => {
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
+  const avgImdbRating = Math.round(average(watched.map((movie) => movie.imdbRating)), 2);
+  const avgUserRating = Math.round(average(watched.map((movie) => movie.userRating)), 2);
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
@@ -138,7 +138,7 @@ const WatchedSummary = ({ watched }) => {
   )
 }
 
-const WatchedMoviesList = ({ watched }) => {
+const WatchedMoviesList = ({ watched, onDeleteWatched }) => {
   return (
     <ul className="list">
       {watched.map((movie) => (
@@ -160,6 +160,7 @@ const WatchedMoviesList = ({ watched }) => {
               <span>⏳</span>
               <span>{movie.runtime} min</span>
             </p>
+            <button className="btn-delete" onClick={() => onDeleteWatched(movie.imdbID)}>X</button>
           </div>
         </li>
       ))}
@@ -191,6 +192,9 @@ const ErrorMessage = ({message}) => {
 const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
   const [movie, setMovie] = useState({});
   const [userRating, setUserRating] = useState(null);
+  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+  const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating;
+
   const {
     Title: title,
     Year: year,
@@ -217,12 +221,9 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     }
 
     const exists = watched.findIndex(el => el.imdbID === selectedId);
-    console.log(exists, watched)
     if (exists === -1) {
       onAddWatched(newWatchedMovie);
       onCloseMovie();
-    } else {
-      alert("That movie already exists on your watched list.")
     }
   }
 
@@ -237,6 +238,15 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
     }
     getMovieDetails();
   }, [selectedId])
+
+  useEffect(function() {
+    if (!title) return;
+    document.title = `Movie | ${title}`
+
+    return function() {
+      document.title = 'usePopcorn';
+    }
+  }, [title])
 
   return (
     <div className="details">
@@ -258,8 +268,12 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
 
       <section>
         <div className="rating">
-          <StarRating maxRating={10} size={24} onSetRating={setUserRating}/>
-          {userRating > 0 && (<button className="btn-add" onClick={handleAdd}>+ Add to list</button>)}
+          { !isWatched ?
+            <>
+              <StarRating maxRating={10} size={24} onSetRating={setUserRating}/>
+              {userRating > 0 && (<button className="btn-add" onClick={handleAdd}>+ Add to list</button>)}
+            </> : <p>You rated this movie with a score of {watchedUserRating}<span>⭐️</span>.</p>
+          }
         </div>
         <p><em>{plot}</em></p>
         <p>Starring {actors}</p>
@@ -293,12 +307,21 @@ export default function App() {
     setWatched(watched => [...watched, movie])
   }
 
+  function handleDeleteWatched(id) {
+    setWatched((watched) => watched.filter(movie => movie.imdbID !== id));
+  }
+
   useEffect(function() {
+    const controller = new AbortController();
+
     async function fetchMovies() {
       try{
         setError("");
         setIsLoading(true);
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${query}`)
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${query}`,
+          { signal: controller.signal }
+        )
 
         if(!res.ok) throw new Error("Something went wrong with fetching movies");
 
@@ -309,21 +332,29 @@ export default function App() {
         }
 
         setMovies(data.Search);
+        setError("");
       } catch(err) {
-        console.log(err);
-        setError(err);
+        console.error(err);
+
+        if (err.name !== "AbortError") {
+          setError(err);
+        }
       } finally {
         setIsLoading(false);
       }
     }
 
-    if (query.length < 2) {
+    if (query.length < 3) {
       setMovies([]);
       setError("");
       return;
     }
 
     fetchMovies();
+
+    return function() {
+      controller.abort();
+    }
   }, [query]);
 
   return (
@@ -350,7 +381,7 @@ export default function App() {
             /> :
             <>
               <WatchedSummary watched={watched} />
-              <WatchedMoviesList watched={watched} />
+              <WatchedMoviesList watched={watched} onDeleteWatched={handleDeleteWatched} />
             </>
           }
         </Box>
