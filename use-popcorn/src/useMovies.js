@@ -21,7 +21,6 @@ export function useMovies(query) {
         if(!res.ok) throw new Error("Something went wrong with fetching movies");
 
         const data = await res.json();
-
         if (data.Response === 'False') {
           throw new Error('Movies not found.')
         }
@@ -29,9 +28,8 @@ export function useMovies(query) {
         setMovies(data.Search);
         setError("");
       } catch(err) {
-        console.error(err);
-
         if (err.name !== "AbortError") {
+          console.log(err.message);
           setError(err);
         }
       } finally {
